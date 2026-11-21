@@ -69,8 +69,8 @@ logged, and the story carries on. The 🔇 header toggle mutes audio; captions a
 
 `netlify.toml` sets build `npm run build`, publish `dist`.
 
-- **Git deploy:** connect the repo in Netlify. Because this app lives in the `dukaan-dost/` folder,
-  set **Base directory = `dukaan-dost`** (Netlify then picks up this folder's `netlify.toml`).
+- **Git deploy:** in Netlify choose *Add new site → Import an existing project*, pick this repo;
+  the build settings come from `netlify.toml` automatically (no base directory needed).
 - **CLI:**
   ```bash
   npm install -g netlify-cli

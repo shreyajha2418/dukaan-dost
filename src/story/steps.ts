@@ -121,51 +121,6 @@ export const STEPS: StoryStep[] = [
   },
   // 6
   {
-    caption: "Paying twice in a day doesn't help.",
-    rule: 'Rule: 1 visit per day',
-    hold: 3000,
-    actions: [
-      { do: 'date', date: '2026-11-15' },
-      { do: 'counter', front: 'riya', queue: null },
-      { do: 'phone', who: 'riya', amount: 120, note: 'Morning' },
-      { do: 'wait', ms: 1000 },
-      { do: 'pay', who: 'riya', amount: 120 },
-      { do: 'wait', ms: 1200 },
-      { do: 'phone', who: 'riya', amount: 120, note: 'Evening, same day' },
-      { do: 'thought', who: 'riya', text: 'Do baar pay karoon toh do visit?' },
-      { do: 'wait', ms: 1800 },
-      { do: 'pay', who: 'riya', amount: 120 },
-    ],
-  },
-  // 7
-  {
-    caption: "The shopkeeper can't reward himself.",
-    rule: 'Rule: merchant & staff IDs excluded',
-    actions: [
-      { do: 'counter', front: null, queue: null },
-      { do: 'phone', who: 'ramesh', amount: 120 },
-      { do: 'thought', who: 'ramesh', text: 'Apne hi QR pe pay karke dekhta hoon…' },
-      { do: 'wait', ms: 2200 },
-      { do: 'pay', who: 'ramesh', amount: 120 },
-    ],
-  },
-  // 8
-  {
-    caption: 'Each shop has a monthly reward cap, so spend stays in control.',
-    rule: 'Rule: shop cap ₹630/month',
-    actions: [
-      { do: 'date', date: '2026-11-20' },
-      { do: 'capUsed', amount: 625, rewardsSent: 60 },
-      { do: 'log', kind: 'info', text: '⏩ Fast-forward to 20 Nov: ₹625 of ₹630 already given out this month' },
-      { do: 'seed', upiId: 'kavya@oksbi', visits: 2, lastVisitDate: '2026-11-16' },
-      { do: 'counter', front: 'kavya', queue: null },
-      { do: 'phone', who: 'kavya', amount: 120 },
-      { do: 'wait', ms: 1800 },
-      { do: 'pay', who: 'kavya', amount: 120 },
-    ],
-  },
-  // 9
-  {
     caption:
       'At closing, the box tells Ramesh how many customers came back. Who gets a reward is worked out automatically.',
     rule: 'Zero effort for the merchant',
@@ -182,7 +137,7 @@ export const STEPS: StoryStep[] = [
       { do: 'voice', who: 'ramesh', key: 'ramesh_closing' },
     ],
   },
-  // 10
+  // 7
   {
     caption: 'Dukaan Dost: repeat visits for the kirana, a moment of purchase for the brand, more UPI on the Paytm QR.',
     end: true,

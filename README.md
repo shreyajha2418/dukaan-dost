@@ -6,7 +6,7 @@ A self-explanatory, click-through web prototype: a basic 4G Soundbox at a kirana
 repeat visits from any UPI ID and, on the 3rd visit in a month, speaks a brand-funded cashback line
 ("Yeh cashback aapko Parle-G ki taraf se").
 
-- **Guided story** (≈2 min): one tap on the cover unlocks audio, then 11 steps auto-play with captions,
+- **Guided story** (≈2 min): one tap on the cover unlocks audio, then 8 steps auto-play with captions,
   speech bubbles, thought bubbles and a "behind the scenes" log. Back / Pause / Next / Replay available
   (keyboard: ← → and Space). In step 1 the shopkeeper speaks his thought out loud (male voice).
 

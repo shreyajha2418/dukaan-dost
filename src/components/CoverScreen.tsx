@@ -27,7 +27,7 @@ export function CoverScreen({ onStart }: { onStart: () => void }) {
         <button type="button" className="big start" onClick={onStart}>
           ▶ Start the demo (sound on 🔊)
         </button>
-        <p className="cover-meta">About 2 minutes · auto-plays · captions on screen</p>
+        <p className="cover-meta">Under 2 minutes · auto-plays · captions on screen</p>
       </div>
     </div>
   )

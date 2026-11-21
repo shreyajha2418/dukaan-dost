@@ -28,6 +28,11 @@ export type StoryAction =
   | { do: 'seed'; upiId: string; visits: number; lastVisitDate: string }
   /** Fast-forward: set how much of the cap is used. */
   | { do: 'capUsed'; amount: number; rewardsSent: number }
+  /**
+   * Fast-forward the month: add other shoppers so the merchant panel matches the recap.
+   * rewarded = customers who reached visit 3, twoVisits / oneVisit = the rest, paid = their rewards in ₹.
+   */
+  | { do: 'monthSoFar'; rewarded: number; twoVisits: number; oneVisit: number; paid: number }
   | { do: 'scene'; scene: 'day' | 'evening' }
   | { do: 'wait'; ms: number }
 

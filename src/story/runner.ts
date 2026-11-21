@@ -10,8 +10,8 @@ import type { StoryAction, StoryStep } from './types'
  * Story pacing. PACE scales every scripted pause in steps.ts (1 = as written);
  * HOLD is the pause after a step's last action before auto-advancing.
  */
-const PACE = 0.6
-const DEFAULT_HOLD = 1500
+const PACE = 0.45
+const DEFAULT_HOLD = 1000
 
 function person(id: PersonId) {
   return PEOPLE[id]
@@ -82,6 +82,26 @@ async function runAction(a: StoryAction, ctx: RunCtx): Promise<void> {
         },
       }))
       return
+    case 'monthSoFar': {
+      const extra: Record<string, { visits: number; lastVisitDate: string; rewarded: boolean; rewardPaused: boolean }> = {}
+      let n = 0
+      const add = (count: number, visits: number, rewarded: boolean) => {
+        for (let i = 0; i < count; i++)
+          extra[`shopper${++n}@upi`] = { visits, lastVisitDate: store.get().date, rewarded, rewardPaused: false }
+      }
+      add(a.rewarded, 3, true)
+      add(a.twoVisits, 2, false)
+      add(a.oneVisit, 1, false)
+      store.set((w) => ({
+        shop: {
+          ...w.shop,
+          customers: { ...w.shop.customers, ...extra },
+          rewardsPaid: w.shop.rewardsPaid + a.paid,
+          rewardsSent: w.shop.rewardsSent + a.rewarded,
+        },
+      }))
+      return
+    }
     case 'capUsed':
       store.set((w) => ({ shop: { ...w.shop, rewardsPaid: a.amount, rewardsSent: a.rewardsSent } }))
       return
@@ -96,7 +116,7 @@ async function runAction(a: StoryAction, ctx: RunCtx): Promise<void> {
 
 /** Minimum time on screen so the caption can be read. */
 function readingTime(step: StoryStep): number {
-  return 1000 + step.caption.length * 40
+  return 800 + step.caption.length * 35
 }
 
 async function runStep(step: StoryStep, ctx: RunCtx): Promise<void> {

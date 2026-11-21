@@ -77,9 +77,6 @@ export function MerchantPanel({ world }: { world: World }) {
                   <small>rewards sent</small>
                 </div>
               </div>
-              <div className="excluded">
-                Never counted: <code>ramesh@ptyes</code> (owner), <code>sunil@okicici</code> (staff)
-              </div>
             </div>
           )}
         </div>

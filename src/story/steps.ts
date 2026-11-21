@@ -126,12 +126,20 @@ export const STEPS: StoryStep[] = [
     rule: 'Zero effort for the merchant',
     hold: 3000,
     actions: [
+      { do: 'date', date: '2026-11-28' },
+      // Other shoppers this month, so the panel matches the recap (12 came back).
+      { do: 'monthSoFar', rewarded: 7, twoVisits: 3, oneVisit: 6, paid: 80 },
+      {
+        do: 'log',
+        kind: 'info',
+        text: '⏩ Fast-forward to 28 Nov · 12 customers came back this month · 9 rewards, ₹105 of ₹630 used',
+      },
       { do: 'counter', front: null, queue: null },
       { do: 'phone', who: null },
       { do: 'scene', scene: 'evening' },
       { do: 'wait', ms: 1500 },
       { do: 'say', keys: ['recap'], label: 'Closing-time recap' },
-      { do: 'log', kind: 'info', text: 'Closing time · daily recap played on the Soundbox' },
+      { do: 'log', kind: 'info', text: 'Closing time · recap played on the Soundbox · no manual tracking by Ramesh' },
       { do: 'wait', ms: 600 },
       // Ramesh says this out loud in a male voice (public/audio/ramesh_closing.mp3).
       { do: 'voice', who: 'ramesh', key: 'ramesh_closing' },

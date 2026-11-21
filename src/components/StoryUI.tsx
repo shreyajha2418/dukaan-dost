@@ -22,7 +22,6 @@ export function StoryControls({
   onTogglePause,
   onNext,
   onReplay,
-  onFreePlay,
 }: {
   index: number
   total: number
@@ -31,7 +30,6 @@ export function StoryControls({
   onTogglePause: () => void
   onNext: () => void
   onReplay: () => void
-  onFreePlay: () => void
 }) {
   return (
     <div className="controls" role="toolbar" aria-label="Story controls">
@@ -52,14 +50,11 @@ export function StoryControls({
           <span key={i} className={i < index ? 'done' : i === index ? 'current' : ''} />
         ))}
       </div>
-      <button type="button" onClick={onFreePlay} className="ghost">
-        Free play
-      </button>
     </div>
   )
 }
 
-export function EndCard({ onReplay, onFreePlay }: { onReplay: () => void; onFreePlay: () => void }) {
+export function EndCard({ onReplay }: { onReplay: () => void }) {
   const cards = [
     {
       icon: '🏪',
@@ -96,11 +91,8 @@ export function EndCard({ onReplay, onFreePlay }: { onReplay: () => void; onFree
         ))}
       </div>
       <div className="end-actions">
-        <button type="button" className="big secondary" onClick={onReplay}>
+        <button type="button" className="big" onClick={onReplay}>
           ↻ Replay story
-        </button>
-        <button type="button" className="big" onClick={onFreePlay}>
-          Try it yourself (Free play)
         </button>
       </div>
     </div>

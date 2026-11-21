@@ -1,6 +1,6 @@
 import { Soundbox } from './Soundbox'
 
-export function CoverScreen({ onStart, onFreePlay }: { onStart: () => void; onFreePlay: () => void }) {
+export function CoverScreen({ onStart }: { onStart: () => void }) {
   return (
     <div className="cover">
       <div className="cover-card">
@@ -27,10 +27,7 @@ export function CoverScreen({ onStart, onFreePlay }: { onStart: () => void; onFr
         <button type="button" className="big start" onClick={onStart}>
           ▶ Start the demo (sound on 🔊)
         </button>
-        <p className="cover-meta">About 2½ minutes · auto-plays · captions on screen</p>
-        <button type="button" className="link" onClick={onFreePlay}>
-          Skip to free play
-        </button>
+        <p className="cover-meta">About 2 minutes · auto-plays · captions on screen</p>
       </div>
     </div>
   )

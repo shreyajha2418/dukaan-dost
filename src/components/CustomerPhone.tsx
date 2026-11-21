@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import type { World } from '../world/store'
 
 const APP_COLORS: Record<string, string> = {
@@ -13,22 +12,11 @@ function fmtDate(d: string) {
   return dt.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' })
 }
 
-/** Phone mock-up. In free play, `controls` replaces the passive view. */
-export function CustomerPhone({
-  world,
-  controls,
-  onPay,
-  payDisabled,
-}: {
-  world: World
-  controls?: ReactNode
-  onPay?: () => void
-  payDisabled?: boolean
-}) {
+/** Phone mock-up; the story drives every tap. */
+export function CustomerPhone({ world }: { world: World }) {
   const { phone, date } = world
   const p = phone.person
   const appColor = p ? (APP_COLORS[p.app] ?? '#37474F') : '#37474F'
-  const interactive = Boolean(onPay)
 
   return (
     <section className="panel phone-panel" aria-label="Customer phone">
@@ -45,7 +33,7 @@ export function CustomerPhone({
             <span>{phone.notification}</span>
           </div>
         )}
-        {!p && !interactive ? (
+        {!p ? (
           <div className="phone-idle">
             <div className="phone-clock">9:41</div>
             <p>Waiting for a customer…</p>
@@ -57,7 +45,6 @@ export function CustomerPhone({
               <span className="app-bar-sub">Scan &amp; Pay</span>
             </div>
             <div className="app-body">
-              {controls}
               <div className="payee">
                 <div className="payee-avatar" aria-hidden="true">
                   RK
@@ -82,16 +69,10 @@ export function CustomerPhone({
                 <button
                   type="button"
                   className={`pay-btn${phone.status === 'paying' ? ' pressing' : ''}`}
-                  onClick={onPay}
-                  disabled={!interactive || payDisabled || phone.status === 'paying'}
+                  disabled
                   aria-label={`Scan and pay ₹${phone.amount}`}
                 >
                   {phone.status === 'paying' ? 'Paying…' : 'Scan & Pay'}
-                </button>
-              )}
-              {interactive && phone.status === 'paid' && (
-                <button type="button" className="pay-btn secondary" onClick={onPay} disabled={payDisabled}>
-                  Pay again
                 </button>
               )}
             </div>

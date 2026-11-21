@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from 'react'
 import { createShopState, type LogKind, type ShopState } from '../logic/rules'
-import { PEOPLE, type Person, type PersonId } from './people'
+import type { Person, PersonId } from './people'
 
 export interface LogEntry {
   id: number
@@ -24,7 +24,7 @@ export interface PhoneView {
 }
 
 export interface World {
-  mode: 'cover' | 'story' | 'free'
+  mode: 'cover' | 'story'
   stepIndex: number
   paused: boolean
   muted: boolean
@@ -36,7 +36,8 @@ export interface World {
   counter: { front: PersonId | null; queue: PersonId | null; thoughts: Partial<Record<PersonId, string>> }
   bubble: { lines: string[]; speaking: boolean; label: string | null }
   scene: 'day' | 'evening'
-  busy: boolean
+  /** Person currently speaking out loud (not the Soundbox). */
+  speaker: PersonId | null
 }
 
 export const START_DATE = '2026-11-02'
@@ -55,18 +56,7 @@ export function initialWorld(mode: World['mode'] = 'cover', muted = false): Worl
     counter: { front: null, queue: null, thoughts: {} },
     bubble: { lines: [], speaking: false, label: null },
     scene: 'day',
-    busy: false,
-  }
-}
-
-export function freePlayWorld(muted: boolean): World {
-  const w = initialWorld('free', muted)
-  return {
-    ...w,
-    date: '2026-11-03',
-    merchant: { optedIn: true, funding: 'brand', showCap: true },
-    phone: { ...w.phone, person: PEOPLE.riya, amount: 120 },
-    counter: { ...w.counter, front: 'riya' },
+    speaker: null,
   }
 }
 

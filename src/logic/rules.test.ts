@@ -162,7 +162,11 @@ describe('Rule 5: ₹15 for Paytm UPI handles', () => {
       pay('arjun@ptyes', 120, '2026-11-05'),
     ])
     expect(results[2].reward).toEqual({ amount: 15, paytmBonus: true, fundingLabel: 'Parle-G pool' })
-    expect(results[2].audioKeys).toEqual(['alert_120', 'visit3_paytm'])
+    expect(results.map((r) => r.audioKeys)).toEqual([
+      ['alert_120', 'visit1_paytm'],
+      ['alert_120', 'visit2_paytm'],
+      ['alert_120', 'visit3_paytm'],
+    ])
     expect(results[2].logLines.at(-1)?.text).toContain('₹15 reward')
     expect(state.rewardsPaid).toBe(15)
   })

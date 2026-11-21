@@ -32,11 +32,13 @@ function Shelves({ evening }: { evening: boolean }) {
   )
 }
 
-function Thought({ text, side = 'right' }: { text?: string; side?: 'left' | 'right' }) {
+function Thought({ text, side = 'right', speaking }: { text?: string; side?: 'left' | 'right'; speaking?: boolean }) {
   if (!text) return null
   return (
-    <div className={`thought thought-${side}`} role="note">
-      <span className="thought-text">💭 {text}</span>
+    <div className={`thought thought-${side}${speaking ? ' spoken' : ''}`} role="note">
+      <span className="thought-text">
+        {speaking ? '🗣️' : '💭'} {text}
+      </span>
     </div>
   )
 }
@@ -61,7 +63,7 @@ export function CounterScene({ world }: { world: World }) {
         <div className="shop-board">Ramesh Kirana Store</div>
         {evening && <div className="shutter" aria-hidden="true" />}
         <div className="shopkeeper">
-          <Thought text={counter.thoughts.ramesh} side="left" />
+          <Thought text={counter.thoughts.ramesh} side="left" speaking={world.speaker === 'ramesh'} />
           <Character id="ramesh" className="person" title="Ramesh, the shopkeeper" />
         </div>
         <div className="customers">

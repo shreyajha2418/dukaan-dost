@@ -18,6 +18,8 @@ export type StoryAction =
   | { do: 'pay'; who: PersonId; amount: number }
   /** Animate the phone paying without the rules engine (scripted moments). */
   | { do: 'tap' }
+  /** A person speaks a line out loud in their own voice (audio key in public/audio). */
+  | { do: 'voice'; who: PersonId; key: string }
   /** Scripted Soundbox lines. silent = bubble only, no audio. */
   | { do: 'say'; keys: string[]; silent?: boolean; label?: string }
   /** Extra "behind the scenes" line. */

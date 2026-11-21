@@ -2,13 +2,17 @@
 const FIXED: Record<string, string> = {
   visit1: 'Is mahine 2 aur visit par ₹10 cashback.',
   visit2: 'Is mahine 1 aur visit par ₹10 cashback.',
+  visit1_paytm: 'Is mahine 2 aur visit par ₹15 cashback.',
+  visit2_paytm: 'Is mahine 1 aur visit par ₹15 cashback.',
   visit3: 'Shukriya! Aapko ₹10 cashback mila. Yeh cashback aapko Parle-G ki taraf se. Wapas zaroor aaiyega!',
   visit3_paytm:
     'Shukriya! Aapko Paytm UPI par ₹15 cashback mila. Yeh cashback aapko Parle-G ki taraf se. Wapas zaroor aaiyega!',
   recap: 'Aaj 4 customers ko reward mila. Is mahine 12 customers wapas aaye.',
+  // Spoken by Ramesh (male voice), shown in his thought bubble, not the Soundbox bubble.
+  ramesh_optin: 'Chalo, Dukaan Dost on kar deta hoon. Bas ek baar karna hai, baaki Soundbox sambhaal lega.',
 }
 
-/** Amounts that have a generated alert_<amount>.mp3. */
+/** Amounts that have a generated alert_<amount>.mp3 (story uses 40, 120, 150). */
 export const PRESET_AMOUNTS = [40, 50, 80, 100, 120, 150, 200, 250, 500] as const
 
 export function bubbleText(key: string): string {

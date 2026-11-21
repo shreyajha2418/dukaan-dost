@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Generate the Dukaan Dost Soundbox voice lines as MP3 files.
 
-Primary engine : edge-tts, stock voice hi-IN-SwaraNeural, rate -5%
+Primary engine : edge-tts, stock voices hi-IN-SwaraNeural (Soundbox) and
+                 hi-IN-MadhurNeural (shopkeeper), rate -5%
 Fallback engine: gTTS (lang="hi")
 
 Usage:
@@ -22,7 +23,8 @@ import sys
 from pathlib import Path
 
 OUT_DIR = Path(__file__).resolve().parent.parent / "public" / "audio"
-VOICE = "hi-IN-SwaraNeural"
+VOICE = "hi-IN-SwaraNeural"          # Soundbox (female)
+MALE_VOICE = "hi-IN-MadhurNeural"     # Ramesh, the shopkeeper
 RATE = "-5%"
 
 HINDI_AMOUNTS = {
@@ -40,6 +42,8 @@ HINDI_AMOUNTS = {
 LINES: dict[str, str] = {
     "visit1": "इस महीने दो और विज़िट पर दस रुपये कैशबैक।",
     "visit2": "इस महीने एक और विज़िट पर दस रुपये कैशबैक।",
+    "visit1_paytm": "इस महीने दो और विज़िट पर पंद्रह रुपये कैशबैक।",
+    "visit2_paytm": "इस महीने एक और विज़िट पर पंद्रह रुपये कैशबैक।",
     "visit3": "शुक्रिया! आपको दस रुपये कैशबैक मिला। यह कैशबैक आपको पारले-जी की तरफ़ से। वापस ज़रूर आइएगा!",
     "visit3_paytm": "शुक्रिया! आपको पेटीएम यूपीआई पर पंद्रह रुपये कैशबैक मिला। यह कैशबैक आपको पारले-जी की तरफ़ से। वापस ज़रूर आइएगा!",
     "recap": "आज चार ग्राहकों को इनाम मिला। इस महीने बारह ग्राहक वापस आए।",
@@ -47,13 +51,17 @@ LINES: dict[str, str] = {
 for amount, words in HINDI_AMOUNTS.items():
     LINES[f"alert_{amount}"] = f"पेटीएम पर {words} रुपये प्राप्त हुए।"
 
+# Lines spoken by people (not the Soundbox), with their own voice.
+LINES["ramesh_optin"] = "चलो, दुकान दोस्त ऑन कर देता हूँ। बस एक बार करना है, बाक़ी साउंडबॉक्स संभाल लेगा।"
+VOICES = {"ramesh_optin": MALE_VOICE}
 
-async def edge(text: str, path: Path) -> None:
+
+async def edge(text: str, path: Path, voice: str = VOICE) -> None:
     import edge_tts  # type: ignore
 
     # aiohttp ignores HTTPS_PROXY unless told; pass it through explicitly.
     proxy = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
-    await edge_tts.Communicate(text, VOICE, rate=RATE, proxy=proxy).save(str(path))
+    await edge_tts.Communicate(text, voice, rate=RATE, proxy=proxy).save(str(path))
 
 
 def gtts(text: str, path: Path) -> None:
@@ -92,7 +100,7 @@ def main() -> int:
         engine = "existing"
         if force or not path.exists() or path.stat().st_size == 0:
             try:
-                asyncio.run(edge(text, path))
+                asyncio.run(edge(text, path, VOICES.get(key, VOICE)))
                 engine = "edge-tts"
             except Exception as e:  # noqa: BLE001
                 print(f"[warn] edge-tts failed for {key}: {e}; trying gTTS")

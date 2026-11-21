@@ -1,4 +1,5 @@
 import { CancelledError, player } from '../audio/AudioPlayer'
+import { bubbleText } from '../audio/lines'
 import { pay, say, setDate, tapPhone, wait, type RunCtx } from '../world/actions'
 import { PEOPLE, type PersonId } from '../world/people'
 import { initialWorld, store } from '../world/store'
@@ -8,7 +9,6 @@ import type { StoryAction, StoryStep } from './types'
 const DEFAULT_HOLD = 2500
 
 function person(id: PersonId) {
-  if (id === 'custom') throw new Error('custom person not allowed in story')
   return PEOPLE[id]
 }
 
@@ -47,6 +47,19 @@ async function runAction(a: StoryAction, ctx: RunCtx): Promise<void> {
     case 'tap':
       await tapPhone(ctx)
       return
+    case 'voice': {
+      // A person speaks out loud: their thought bubble shows the words, the Soundbox stays quiet.
+      store.set((w) => ({
+        counter: { ...w.counter, thoughts: { ...w.counter.thoughts, [a.who]: bubbleText(a.key) } },
+        speaker: a.who,
+      }))
+      try {
+        if (!ctx.instant) await player.play([a.key], {}, ctx.gen)
+      } finally {
+        if (ctx.gen === player.token()) store.set({ speaker: null })
+      }
+      return
+    }
     case 'say':
       await say(a.keys, ctx, { silent: a.silent, label: a.label ?? null })
       return

@@ -182,7 +182,8 @@ export function evaluatePayment(state: ShopState, payment: Payment): Evaluation 
 
   if (visits < target) {
     lines.push({ kind: 'counted', text: `${upi} · ${rupees(amount)} · visit counted (${visits} of ${target})` })
-    audioKeys.push(`visit${visits}`)
+    // Paytm UPI payers hear the ₹15 they are working towards.
+    audioKeys.push(isPaytmHandle(upi) ? `visit${visits}_paytm` : `visit${visits}`)
   } else if (visits === target && !prev.rewarded) {
     lines.push({ kind: 'counted', text: `${upi} · ${rupees(amount)} · visit counted (${visits} of ${target})` })
     const paytm = isPaytmHandle(upi)

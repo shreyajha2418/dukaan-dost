@@ -417,6 +417,15 @@ code {
   left: 30px;
   right: auto;
 }
+.thought.spoken {
+  background: #fff6db;
+  border-color: #c77700;
+  box-shadow: 0 0 0 4px rgba(224, 138, 0, 0.18), 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+.thought.spoken::after {
+  background: #fff6db;
+  border-color: #c77700;
+}
 @keyframes pop {
   from {
     transform: scale(0.7);
@@ -781,57 +790,6 @@ code {
   }
 }
 
-/* Free play phone controls */
-.fp-controls {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 6px;
-  padding-bottom: 8px;
-  border-bottom: 1px dashed var(--line);
-}
-.fp-label {
-  font-size: 12px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--ink-2);
-}
-.chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-.chip {
-  border: 1.5px solid var(--line);
-  background: var(--white);
-  color: var(--ink);
-  border-radius: 999px;
-  padding: 5px 10px;
-  font-size: 14px;
-  font-weight: 600;
-}
-.chip.on {
-  background: var(--navy);
-  border-color: var(--navy);
-  color: var(--white);
-}
-.fp-custom {
-  display: flex;
-  gap: 6px;
-}
-.fp-custom input {
-  flex: 1;
-  min-width: 0;
-  font: inherit;
-  font-size: 14px;
-  border: 1.5px solid var(--line);
-  border-radius: 10px;
-  padding: 6px 10px;
-}
-.free .amount {
-  font-size: 36px;
-}
-
 /* ---------- Merchant panel ---------- */
 .biz {
   border: 1px solid var(--line);
@@ -1158,22 +1116,6 @@ code {
 .progress span.current {
   background: var(--cyan);
 }
-.freeplay-bar {
-  display: grid;
-  gap: 10px;
-}
-.freeplay-bar .caption-text {
-  font-size: 17px;
-  font-weight: 500;
-}
-.date-pill {
-  font-weight: 700;
-  color: var(--navy);
-  background: var(--sky);
-  border-radius: 999px;
-  padding: 8px 14px;
-}
-
 /* ---------- End card ---------- */
 .end-overlay {
   position: fixed;
@@ -1283,7 +1225,11 @@ code {
     font-size: 14px;
   }
   .brand-sub {
-    font-size: 12px;
+    font-size: 11px;
+    line-height: 1.3;
+  }
+  .mute .btn-text {
+    display: none;
   }
   .mute {
     padding: 6px 10px;
@@ -1300,7 +1246,7 @@ code {
   }
   /* Story: caption + controls stay pinned to the bottom of the screen. */
   .stage.story {
-    padding-bottom: 190px;
+    padding-bottom: 170px;
   }
   .stage.story .caption-area {
     position: fixed;
@@ -1329,9 +1275,6 @@ code {
     min-height: 40px;
     padding: 6px 12px;
   }
-  .freeplay-bar .caption-text {
-    font-size: 16px;
-  }
   .controls {
     gap: 6px;
   }
@@ -1346,13 +1289,11 @@ code {
   }
   .progress {
     min-width: 60px;
-    order: 10;
-    flex-basis: 100%;
   }
   .scene {
     flex: none;
     min-height: 0;
-    aspect-ratio: 4 / 2.9;
+    aspect-ratio: 4 / 2.75;
   }
   .soundbox-wrap {
     width: 54px;
@@ -1414,16 +1355,6 @@ code {
   }
   .endcard {
     padding: 18px;
-  }
-  .freeplay-bar .controls button {
-    font-size: 15px;
-  }
-  .date-pill {
-    flex-basis: 100%;
-    text-align: center;
-  }
-  .freeplay-bar .controls button.ghost {
-    margin-left: 0;
   }
 }
 

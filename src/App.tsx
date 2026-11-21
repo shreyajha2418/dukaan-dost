@@ -3,11 +3,10 @@ import { player } from './audio/AudioPlayer'
 import { CounterScene } from './components/CounterScene'
 import { CoverScreen } from './components/CoverScreen'
 import { CustomerPhone } from './components/CustomerPhone'
-import { FreePlayBar, useFreePlay } from './components/FreePlay'
 import { MerchantPanel } from './components/MerchantPanel'
 import { CaptionBar, EndCard, StoryControls } from './components/StoryUI'
-import { goTo, pause, resume, STEP_COUNT, STEPS, stopStory } from './story/runner'
-import { freePlayWorld, store, useWorld } from './world/store'
+import { goTo, pause, resume, STEP_COUNT, STEPS } from './story/runner'
+import { store, useWorld } from './world/store'
 
 const DISCLAIMER = 'Concept prototype for a Paytm product case study. Not a Paytm product.'
 
@@ -23,18 +22,12 @@ function setMuted(m: boolean) {
 
 function startStory() {
   player.unlock()
+  window.scrollTo(0, 0)
   void goTo(0)
-}
-
-function startFreePlay() {
-  player.unlock()
-  stopStory()
-  store.set(freePlayWorld(store.get().muted))
 }
 
 export default function App() {
   const world = useWorld()
-  const fp = useFreePlay(world)
 
   useEffect(() => {
     player.setMuted(store.get().muted)
@@ -61,14 +54,13 @@ export default function App() {
   if (world.mode === 'cover') {
     return (
       <>
-        <CoverScreen onStart={startStory} onFreePlay={startFreePlay} />
+        <CoverScreen onStart={startStory} />
       </>
     )
   }
 
   const step = STEPS[world.stepIndex]
-  const isStory = world.mode === 'story'
-  const showEnd = isStory && step.end
+  const showEnd = Boolean(step.end)
 
   return (
     <div className="app">
@@ -89,54 +81,36 @@ export default function App() {
           aria-pressed={world.muted}
           aria-label={world.muted ? 'Unmute Soundbox audio' : 'Mute Soundbox audio'}
         >
-          {world.muted ? '🔇 Muted' : '🔊 Sound on'}
+          {world.muted ? '🔇' : '🔊'} <span className="btn-text">{world.muted ? 'Muted' : 'Sound on'}</span>
         </button>
       </header>
 
-      <main className={`stage ${isStory ? 'story' : 'free'}`}>
+      <main className="stage story">
         <CounterScene world={world} />
         <div className="caption-area">
-          {isStory ? (
-            <>
-              <CaptionBar step={step} index={world.stepIndex} total={STEP_COUNT} />
-              <StoryControls
-                index={world.stepIndex}
-                total={STEP_COUNT}
-                paused={world.paused}
-                onBack={() => void goTo(world.stepIndex - 1)}
-                onNext={() => void goTo(world.stepIndex + 1)}
-                onReplay={() => void goTo(world.stepIndex)}
-                onTogglePause={() => (world.paused ? resume() : pause())}
-                onFreePlay={startFreePlay}
-              />
-            </>
-          ) : (
-            <FreePlayBar
-              world={world}
-              busy={fp.busy}
-              onNextDay={fp.nextDay}
-              onNextMonth={fp.nextMonth}
-              onReset={fp.reset}
-              onStory={() => void goTo(0)}
-            />
-          )}
+          <CaptionBar step={step} index={world.stepIndex} total={STEP_COUNT} />
+          <StoryControls
+            index={world.stepIndex}
+            total={STEP_COUNT}
+            paused={world.paused}
+            onBack={() => void goTo(world.stepIndex - 1)}
+            onNext={() => void goTo(world.stepIndex + 1)}
+            onReplay={() => void goTo(world.stepIndex)}
+            onTogglePause={() => (world.paused ? resume() : pause())}
+          />
         </div>
-        {isStory ? (
-          <CustomerPhone world={world} />
-        ) : (
-          <CustomerPhone world={world} controls={fp.phoneControls} onPay={fp.doPay} payDisabled={fp.busy} />
-        )}
+        <CustomerPhone world={world} />
         <MerchantPanel world={world} />
         {showEnd && (
           <div className="end-overlay">
-            <EndCard onReplay={() => void goTo(0)} onFreePlay={startFreePlay} />
+            <EndCard onReplay={() => void goTo(0)} />
           </div>
         )}
       </main>
 
       <footer className="footer">
-        {DISCLAIMER} Characters, shop and brand campaign are illustrative. Voice: stock Microsoft neural TTS
-        (hi-IN-SwaraNeural).
+        {DISCLAIMER} Characters, shop and brand campaign are illustrative. Voices: stock Microsoft neural TTS
+        (hi-IN-SwaraNeural, hi-IN-MadhurNeural).
       </footer>
     </div>
   )

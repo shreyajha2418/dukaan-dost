@@ -16,7 +16,6 @@ const LOOKS: Record<PersonId, Look> = {
   arjun: { skin: '#C68660', hair: '#1E1410', outfit: '#3B6FD8', accent: '#DCE8FF', style: 'short' },
   kavya: { skin: '#D19A70', hair: '#2A1A12', outfit: '#E8A21D', accent: '#FFF1C7', style: 'ponytail' },
   ramesh: { skin: '#B5764C', hair: '#2E2420', outfit: '#F4F1EA', accent: '#C9B98F', style: 'bald', moustache: true },
-  custom: { skin: '#C68A5E', hair: '#2B1B14', outfit: '#7A5AC8', accent: '#E6DDFB', style: 'short' },
 }
 
 /** Flat cartoon person, viewBox 0 0 100 160 (head to waist/knees). */

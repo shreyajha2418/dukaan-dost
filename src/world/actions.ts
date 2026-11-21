@@ -52,7 +52,7 @@ function rewardNotification(ev: Evaluation): string | null {
 /** Phone tap animation without the rules engine (used for the scripted brand moment). */
 export async function tapPhone(ctx: RunCtx): Promise<void> {
   store.set((w) => ({ phone: { ...w.phone, status: 'paying', notification: null } }))
-  await wait(700, ctx)
+  await wait(450, ctx)
   store.set((w) => ({ phone: { ...w.phone, status: 'paid' } }))
 }
 

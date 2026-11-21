@@ -2,7 +2,7 @@
 """Generate the Dukaan Dost Soundbox voice lines as MP3 files.
 
 Primary engine : edge-tts, stock voices hi-IN-SwaraNeural (Soundbox) and
-                 hi-IN-MadhurNeural (shopkeeper), rate -5%
+                 hi-IN-MadhurNeural (shopkeeper), rate +5%
 Fallback engine: gTTS (lang="hi")
 
 Usage:
@@ -25,7 +25,7 @@ from pathlib import Path
 OUT_DIR = Path(__file__).resolve().parent.parent / "public" / "audio"
 VOICE = "hi-IN-SwaraNeural"          # Soundbox (female)
 MALE_VOICE = "hi-IN-MadhurNeural"     # Ramesh, the shopkeeper
-RATE = "-5%"
+RATE = "+5%"
 
 HINDI_AMOUNTS = {
     40: "चालीस",

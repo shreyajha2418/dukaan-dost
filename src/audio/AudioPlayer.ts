@@ -12,7 +12,7 @@ export interface PlayHooks {
   onSpeakingChange?: (speaking: boolean) => void
 }
 
-const GAP_MS = 400
+const GAP_MS = 300
 
 /**
  * Plays a queue of Soundbox lines in order and resolves when done.

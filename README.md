@@ -47,7 +47,7 @@ npm run build      # production build into dist/
 ## Audio
 
 All Soundbox lines are pre-generated MP3s in `public/audio/` (no live TTS at runtime), made with
-[`edge-tts`](https://pypi.org/project/edge-tts/) using stock Hindi neural voices at rate −5%:
+[`edge-tts`](https://pypi.org/project/edge-tts/) using stock Hindi neural voices at rate +5%:
 `hi-IN-SwaraNeural` (female) for the Soundbox and `hi-IN-MadhurNeural` (male) for Ramesh, from Devanagari text with amounts written as words. `gTTS` is the fallback.
 
 **Regenerate:**

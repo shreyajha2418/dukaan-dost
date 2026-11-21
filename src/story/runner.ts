@@ -6,7 +6,12 @@ import { initialWorld, store } from '../world/store'
 import { STEPS } from './steps'
 import type { StoryAction, StoryStep } from './types'
 
-const DEFAULT_HOLD = 2500
+/**
+ * Story pacing. PACE scales every scripted pause in steps.ts (1 = as written);
+ * HOLD is the pause after a step's last action before auto-advancing.
+ */
+const PACE = 0.6
+const DEFAULT_HOLD = 1500
 
 function person(id: PersonId) {
   return PEOPLE[id]
@@ -84,14 +89,14 @@ async function runAction(a: StoryAction, ctx: RunCtx): Promise<void> {
       store.set({ scene: a.scene })
       return
     case 'wait':
-      await wait(a.ms, ctx)
+      await wait(a.ms * PACE, ctx)
       return
   }
 }
 
 /** Minimum time on screen so the caption can be read. */
 function readingTime(step: StoryStep): number {
-  return 1500 + step.caption.length * 55
+  return 1000 + step.caption.length * 40
 }
 
 async function runStep(step: StoryStep, ctx: RunCtx): Promise<void> {
@@ -104,7 +109,7 @@ async function runStep(step: StoryStep, ctx: RunCtx): Promise<void> {
   const started = Date.now()
   for (const a of step.actions) await runAction(a, ctx)
   if (ctx.instant || step.end) return
-  const hold = Math.max(step.hold ?? DEFAULT_HOLD, readingTime(step) - (Date.now() - started))
+  const hold = Math.max((step.hold ?? DEFAULT_HOLD) * (step.hold ? PACE : 1), readingTime(step) - (Date.now() - started))
   await wait(hold, ctx)
 }
 

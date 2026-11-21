@@ -166,7 +166,8 @@ export const STEPS: StoryStep[] = [
   },
   // 9
   {
-    caption: 'At closing, the box tells Ramesh how many customers came back. He typed nothing all day.',
+    caption:
+      'At closing, the box tells Ramesh how many customers came back. Who gets a reward is worked out automatically.',
     rule: 'Zero effort for the merchant',
     hold: 3000,
     actions: [
@@ -176,7 +177,9 @@ export const STEPS: StoryStep[] = [
       { do: 'wait', ms: 1500 },
       { do: 'say', keys: ['recap'], label: 'Closing-time recap' },
       { do: 'log', kind: 'info', text: 'Closing time · daily recap played on the Soundbox' },
-      { do: 'thought', who: 'ramesh', text: '12 log wapas aaye. Aur maine kuch likha bhi nahi.' },
+      { do: 'wait', ms: 600 },
+      // Ramesh says this out loud in a male voice (public/audio/ramesh_closing.mp3).
+      { do: 'voice', who: 'ramesh', key: 'ramesh_closing' },
     ],
   },
   // 10

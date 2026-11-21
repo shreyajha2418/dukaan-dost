@@ -1335,6 +1335,11 @@ code {
   .customer.in-queue .thought {
     max-width: 104px;
   }
+  .shopkeeper .thought.spoken {
+    max-width: 250px;
+    right: 0;
+    bottom: 92%;
+  }
   .shopkeeper {
     width: 20%;
     right: 2%;

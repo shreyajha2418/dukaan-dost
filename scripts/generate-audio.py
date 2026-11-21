@@ -53,7 +53,8 @@ for amount, words in HINDI_AMOUNTS.items():
 
 # Lines spoken by people (not the Soundbox), with their own voice.
 LINES["ramesh_optin"] = "चलो, दुकान दोस्त ऑन कर देता हूँ। बस एक बार करना है, बाक़ी साउंडबॉक्स संभाल लेगा।"
-VOICES = {"ramesh_optin": MALE_VOICE}
+LINES["ramesh_closing"] = "वाह, इस महीने बारह कस्टमर्स वापस आए! और किसको रिवॉर्ड देना है, मुझे कोई हिसाब नहीं लगाना पड़ा। सब अपने आप हो गया!"
+VOICES = {"ramesh_optin": MALE_VOICE, "ramesh_closing": MALE_VOICE}
 
 
 async def edge(text: str, path: Path, voice: str = VOICE) -> None:

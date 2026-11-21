@@ -59,7 +59,7 @@ The script decodes each file after generating and prints a table of durations.
 
 **Replace a file with your own recording:** drop an MP3 with the same name into `public/audio/`
 (e.g. `visit3.mp3`). Keys: `alert_40|50|80|100|120|150|200|250|500`, `visit1`, `visit2`, `visit1_paytm`, `visit2_paytm` (₹15 versions), `visit3`,
-`visit3_paytm`, `recap`, `ramesh_optin` (shopkeeper's male voice). The story uses ₹40, ₹120 and ₹150; the other amount files are spare. If you change the words, update the bubble text in `src/audio/lines.ts`.
+`visit3_paytm`, `recap`, `ramesh_optin`, `ramesh_closing` (shopkeeper's male voice). The story uses ₹40, ₹120 and ₹150; the other amount files are spare. If you change the words, update the bubble text in `src/audio/lines.ts`.
 
 If a file is missing or can't play, the speech bubble still shows the words, a console warning is
 logged, and the story carries on. The 🔇 header toggle mutes audio; captions and bubbles keep working.

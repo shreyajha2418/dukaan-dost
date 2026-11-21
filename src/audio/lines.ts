@@ -10,6 +10,8 @@ const FIXED: Record<string, string> = {
   recap: 'Aaj 4 customers ko reward mila. Is mahine 12 customers wapas aaye.',
   // Spoken by Ramesh (male voice), shown in his thought bubble, not the Soundbox bubble.
   ramesh_optin: 'Chalo, Dukaan Dost on kar deta hoon. Bas ek baar karna hai, baaki Soundbox sambhaal lega.',
+  ramesh_closing:
+    'Waah, is mahine 12 customers wapas aaye! Aur kisko reward dena hai, mujhe koi hisaab nahi lagana pada. Sab apne aap ho gaya!',
 }
 
 /** Amounts that have a generated alert_<amount>.mp3 (story uses 40, 120, 150). */
